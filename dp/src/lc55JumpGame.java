@@ -7,15 +7,22 @@ public class lc55JumpGame {
         dp[0] = true;
         for (int i = 1; i < len; i++) {
             for (int j = 0; j < i; j++) {
-                if (!dp[j]) {
-                    continue;
-                }
                 dp[i] = dp[j] && nums[j] >= i - j;
                 if (dp[i]) break;
             }
         }
         return dp[len - 1];
     }
+
+//      using greed is better
+//    public boolean canJump(int[] nums) {
+//        int reachable = 0;
+//        for (int i=0; i<nums.length; i++) {
+//            if (i > reachable) return false;
+//            reachable = Math.max(reachable, i + nums[i]);
+//        }
+//        return true;
+//    }
 
 
     @Test
