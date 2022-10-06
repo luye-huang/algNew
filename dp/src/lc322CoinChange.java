@@ -1,6 +1,6 @@
 import org.junit.Test;
-import org.w3c.dom.ls.LSOutput;
 
+// amount递增，每个amount的最少coins情况等于 含有每个（小于等于这个amount）coin的这种情况的最小
 import java.util.Arrays;
 
 public class lc322CoinChange {
