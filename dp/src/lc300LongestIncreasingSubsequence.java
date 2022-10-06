@@ -1,7 +1,5 @@
 import org.junit.Test;
-
 import java.util.ArrayList;
-import java.util.List;
 
 
 //当前状态为前面每一个元素为最后元素的状态的最值
