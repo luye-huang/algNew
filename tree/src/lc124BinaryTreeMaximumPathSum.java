@@ -1,21 +1,23 @@
 import org.junit.Test;
 
 public class lc124BinaryTreeMaximumPathSum {
-    public int maxPathSum(TreeNode root) {
-        int ret = root.val;
-        if (root.left != null) {
-            ret = Math.max(ret, maxPathSum(root.left));
-            ret = Math.max(ret, root.val + maxPathSum(root.left));
-            if (root.right != null) {
-                ret = Math.max(ret, root.val + maxPathSum(root.left) + maxPathSum(root.right));
+    int maxValue;
 
-            }
-        }
-        if (root.right != null) {
-            ret = Math.max(ret, maxPathSum(root.right));
-            ret = Math.max(ret, root.val + maxPathSum(root.right));
-        }
-        return ret;
+    public int maxPathSum(TreeNode root) {
+        maxValue = Integer.MIN_VALUE;
+        maxPathDown(root);
+        return maxValue;
+    }
+
+    //Each node actually has two roles when it comes to function maxPathDown.
+    // When processing the final result maxValue, the node is treated as the highest point of a path.
+    // When calculating its return value, it is only part of a path (left or right part), and this return value will be used to calculate path sum of other paths with some other nodes(above the current one) as their highest point.
+    private int maxPathDown(TreeNode node) {
+        if (node == null) return 0;
+        int left = Math.max(0, maxPathDown(node.left));
+        int right = Math.max(0, maxPathDown(node.right));
+        maxValue = Math.max(maxValue, left + right + node.val);
+        return Math.max(left, right) + node.val;
     }
 
     @Test
