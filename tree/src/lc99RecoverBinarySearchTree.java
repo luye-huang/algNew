@@ -1,60 +1,32 @@
 import org.junit.Test;
 
 public class lc99RecoverBinarySearchTree {
+    private TreeNode first;
+    private TreeNode second;
+    private TreeNode pre;
     public void recoverTree(TreeNode root) {
-//        swapHelper(root.left, root.val, true);
-//        swapHelper(root.right, root.val, false);
-        if (root == null) {
-            return;
-        }
-        if (root.left != null) {
-            if (root.left.val > root.val) {
-                int temp = root.left.val;
-                root.left.val = root.val;
-                root.val = temp;
-            }
-        }
-        if (root.right != null) {
-            if (root.right.val < root.val) {
-                int temp = root.right.val;
-                root.right.val = root.val;
-                root.val = temp;
-                if (root.left != null) {
-                    if (root.left.val > root.val) {
-                        temp = root.left.val;
-                        root.left.val = root.val;
-                        root.val = temp;
-                    }
-                }
-            }
-        }
-        recoverTree(root.left);
-        recoverTree(root.right);
+        if(root==null) return;
+        first = null;
+        second = null;
+        pre = null;
+        inorder(root);
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
     }
 
-    private Integer swapHelper(TreeNode root, int val, boolean less) {
-        if (root == null) {
-            return null;
+    private void inorder(TreeNode root){
+        if(root==null) return;
+        inorder(root.left);
+
+        if(first==null && (pre==null ||pre.val>=root.val)){
+            first = pre;
         }
-        int pushDownValue = root.val;
-        if (less) {
-            pushDownValue = Math.min(val, root.val);
-        } else {
-            pushDownValue = Math.max(val, root.val);
+        if(first!=null && pre.val>=root.val){
+            second = root;
         }
-        Integer left = swapHelper(root.left, pushDownValue, true);
-        Integer right = swapHelper(root.right, pushDownValue, false);
-//        if (root.left != null && root.left.val > val) {
-//            swapHelper(root.left, root.val);
-//        }
-        if (left != null && left > root.val) {
-            root.val = left;
-        }
-        if (right != null && right < root.val) {
-            root.val = right;
-        }
-        return root.val;
-//        return null;
+        pre = root;
+        inorder(root.right);
     }
 
     @Test
