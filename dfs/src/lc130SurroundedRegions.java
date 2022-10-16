@@ -1,4 +1,6 @@
 import org.junit.Test;
+import org.junit.platform.commons.util.StringUtils;
+
 import java.util.HashMap;
 
 public class lc130SurroundedRegions {
@@ -56,6 +58,5 @@ public class lc130SurroundedRegions {
                 {'O', 'X', 'O', 'O', 'O', 'O'}};
         System.out.println();
         solve(data);
-        System.out.println();
     }
 }
