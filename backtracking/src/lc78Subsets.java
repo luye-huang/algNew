@@ -1,4 +1,5 @@
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,13 @@ public class lc78Subsets {
 
     private void backtrack(int index, int[] nums, List<Integer> subset) {
         if (index == nums.length) {
-            ret.add(subset);
+            ret.add(new ArrayList<>(subset));
             return;
         }
-        List<Integer> newList = new ArrayList<>(subset);
-        backtrack(index + 1, nums, newList);
-        newList = new ArrayList<>(subset);
-        newList.add(nums[index]);
-        backtrack(index + 1, nums, newList);
+        backtrack(index + 1, nums, subset);
+        subset.add(nums[index]);
+        backtrack(index + 1, nums, subset);
+        subset.remove(subset.size() - 1);
     }
 
     @Test
