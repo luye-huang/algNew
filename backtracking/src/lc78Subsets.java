@@ -13,6 +13,7 @@ public class lc78Subsets {
 
     private void backtrack(int index, int[] nums, List<Integer> subset) {
         if (index == nums.length) {
+            //避免软拷贝带来的相互污染
             ret.add(new ArrayList<>(subset));
             return;
         }
