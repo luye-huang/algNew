@@ -1,56 +1,74 @@
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
+import java.util.Arrays;
 
 public class lc567PermutationinString {
     public boolean checkInclusion(String s1, String s2) {
         int left = 0, right = 0;
-        HashMap<Character, Integer> need = new HashMap<>();
-        HashMap<Character, Integer> window = new HashMap<>();
+        int[] need = new int[26];
+        int[] window = new int[26];
+        int match = 0, unmatched = 0;
         for (int i = 0; i < s1.length(); ++i) {
-            char key = s1.charAt(i);
-            if (need.containsKey(key)) {
-                need.put(key, need.get(key) + 1);
-            } else {
-                need.put(key, 1);
-                window.put(key, 0);
+            if (need[s1.charAt(i) - 'a'] == 0) {
+                match++;
             }
+            need[s1.charAt(i) - 'a']++;
         }
-        int valid = 0;
+        unmatched = match;
         while (right < s2.length()) {
             char r = s2.charAt(right++);
-            if (window.containsKey(r)) {
-                int val = window.get(r) + 1;
-                if (val == need.get(r)) {
-                    ++valid;
-                    if (valid == need.keySet().size()) {
-                        return true;
-                    }
-                }
-                window.put(r, val);
-            } else {
+            if (need[r - 'a'] == 0) {
                 left = right;
-                valid = 0;
-                window.replaceAll((k, v) -> 0);
+//                Arrays.fill(window, 0);
+//                window = empty.clone();
+                // Array.fill 和 clone都比new新的数组慢
+                window = new int[26];
+                unmatched = match;
+                continue;
+            }
+            if (++window[r - 'a'] == need[r - 'a']) {
+                if (--unmatched == 0) {
+                    return true;
+                }
             }
             while (right - left >= s1.length()) {
                 char l = s2.charAt(left++);
-                if (need.containsKey(l)) {
-                    int val = window.get(l) - 1;
-                    if (val == need.get(l) - 1) {
-                        valid--;
-                    }
-                    window.put(l, val);
+                if (window[l - 'a']-- == need[l - 'a']) {
+                    ++unmatched;
                 }
             }
         }
         return false;
     }
 
+
+    //最好解法
+//    public boolean checkInclusion(String s1, String s2) {
+//        int[] count = new int[26];
+//        for (int i = 0; i < s1.length(); i++) {
+//            count[s1.charAt(i) - 'a']++;
+//        }
+//        int left = 0, right = 0, len = s1.length();
+//        while (right < s2.length()) {
+//            if (count[s2.charAt(right++) - 'a']-- >= 1) {
+//                len--;
+//            }
+//            if (len == 0) return true;
+//            if (right - left == s1.length() && count[s2.charAt(left++) - 'a']++ >= 0) {
+//                len++;
+//            }
+//        }
+//        return false;
+//    }
+
     @Test
     public void test() {
-//        System.out.println(checkInclusion("ab", "eidbaooo"));
-//        System.out.println(checkInclusion("ab", "eidboaoo"));
+        System.out.println(checkInclusion("ab", "eidbaooo"));
+        System.out.println(checkInclusion("ab", "eidboaoo"));
         System.out.println(checkInclusion("adc", "dcda"));
+        System.out.println(checkInclusion("abcdxabcde", "abcdabcdex"));
+
+
+        System.out.println(checkInclusion("trinitrophenylmethylnitramine", "dinitrophenylhydrazinetrinitrophenylmethylnitramine"));
     }
 }
