@@ -3,7 +3,7 @@ import org.testng.annotations.Test;
 import java.util.*;
 // deadends 一旦碰撞可以永久去掉，不必继续参与循环，因为处理的节点已经被visited记录
 // 刚找到邻居节点时就判断是否与终点相等。提前这个判断就不会让它再产生邻居节点
-// 字符串截取时， 先转charArray比用substring快
+// 字符串截取时， 先转charArray比用substring快, 用string builder和charArray差不多
 public class lc752OpentheLock {
     public int openLock(String[] deadends, String target) {
         if (Arrays.stream(deadends).anyMatch(x -> x.equals("0000"))) {
