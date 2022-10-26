@@ -43,11 +43,14 @@ public class lc76MinimumWindowSubstring {
 
     @Test
     public void test() {
-//        Queue<Integer> queue = new LinkedList<>();
-//        queue.add(5);
-//        queue.add(15);
-//        System.out.println(queue.poll());
-//        System.out.println(queue.poll());
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(5);
+        queue.add(15);
+        queue.add(20);
+        System.out.println(queue.peek());
+        System.out.println(queue.poll());
+        System.out.println(queue.poll());
+        System.out.println(queue.poll());
         System.out.println(minWindow("EEADOBECODEBANC", "ABC"));
 
     }
