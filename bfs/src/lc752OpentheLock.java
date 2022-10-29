@@ -146,6 +146,8 @@ public class lc752OpentheLock {
 
     @Test
     public void test() {
+        HashMap<String, HashMap<String, Integer>> map = new HashMap<>();
+        System.out.println(map.getOrDefault("1", new HashMap<>()).get(null));
         System.out.println(openLock(new String[]{"0201", "0101", "0102", "1212", "2002"}, "0202"));
         System.out.println(openLock(new String[]{"8888"}, "0009"));
         System.out.println(openLock(new String[]{"0000"}, "0009"));
