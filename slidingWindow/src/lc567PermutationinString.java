@@ -1,6 +1,4 @@
-import org.testng.annotations.Test;
-
-import java.util.Arrays;
+import org.junit.Test;
 
 public class lc567PermutationinString {
     public boolean checkInclusion(String s1, String s2) {
