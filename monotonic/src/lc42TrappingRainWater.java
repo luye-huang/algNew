@@ -8,26 +8,15 @@ public class lc42TrappingRainWater {
         int ret = 0;
         //monotonic less
         Deque<Integer> deque = new ArrayDeque<>();
-
         for (int i = 0; i < height.length; i++) {
-            int bottom = -1;
-            while (!deque.isEmpty()) {
-                if (height[deque.peekLast()] > height[i]) {
-                    if (bottom == -1) {
-//                        break;
-                    } else {
-                        ret += (height[i] - height[bottom]) * (i - deque.peekLast() - 1);
-                    }
-                    break;
-                } else {
-                    int num = deque.pollLast();
-                    if (bottom == -1) {
-                        bottom = num;
-                    } else {
-                        ret += (height[num] - height[bottom]) * (i - num - 1);
-                        bottom = num;
-                    }
-                }
+            int bottom = deque.isEmpty() ? 0 : height[deque.peekLast()];
+            while (!deque.isEmpty() && height[deque.peekLast()] <= height[i]) {
+                int num = deque.pollLast();
+                ret += (height[num] - bottom) * (i - num - 1);
+                bottom = height[num];
+            }
+            if (!deque.isEmpty()) {
+                ret += (height[i] - bottom) * (i - deque.peekLast() - 1);
             }
             deque.offer(i);
         }
