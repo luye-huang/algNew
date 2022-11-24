@@ -1,4 +1,5 @@
 public class lc5LongestPalindromicSubstring {
+    //每一个字符为中点，向两边展开
     public String longestPalindrome(String s) {
         int start = 0;
         int end = 0;

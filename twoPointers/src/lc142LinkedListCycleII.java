@@ -1,6 +1,7 @@
 import org.testng.annotations.Test;
 
 public class lc142LinkedListCycleII {
+    //详见labuladong p65
     public ListNode detectCycle(ListNode head) {
         if (head == null) return null;
         ListNode slow = head;
