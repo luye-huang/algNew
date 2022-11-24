@@ -53,11 +53,11 @@ public class lc239SlidingWindowMaximum {
         //only keep elements that are bigger and earlier than cur. first one is the biggest(monotonic)
         Deque<Integer> q = new ArrayDeque<>();
         for (int i = 0; i < nums.length; i++) {
-            //remove elements our of range
+            //remove elements our of range from head
             while (!q.isEmpty() && q.peek() <= i - k) {
                 q.poll();
             }
-            //remove elements smaller than current one
+            //remove elements smaller than current one from tail
             while (!q.isEmpty() && nums[q.peekLast()] < nums[i]) {
                 q.pollLast();
             }
