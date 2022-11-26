@@ -1,40 +1,39 @@
 import org.junit.Test;
 
 public class lc567PermutationinString {
-    public boolean checkInclusion(String s1, String s2) {
-        int left = 0, right = 0;
-        int[] need = new int[26];
-        int[] window = new int[26];
-        int match = 0, unmatched = 0;
-        for (int i = 0; i < s1.length(); ++i) {
-            if (need[s1.charAt(i) - 'a'] == 0) {
-                match++;
-            }
-            need[s1.charAt(i) - 'a']++;
+
+    //同438
+    public boolean checkInclusion(String s, String p) {
+        int[] unmatched = new int[26];
+        int[] original = new int[26];
+        int matched = 0;
+        for (int i = 0; i < s.length(); i++) {
+            ++unmatched[s.charAt(i) - 'a'];
+            ++original[s.charAt(i) - 'a'];
         }
-        unmatched = match;
-        while (right < s2.length()) {
-            char r = s2.charAt(right++);
-            if (need[r - 'a'] == 0) {
-                left = right;
-//                Arrays.fill(window, 0);
-//                window = empty.clone();
-                // Array.fill 和 clone都比new新的数组慢
-                window = new int[26];
-                unmatched = match;
+        int left = 0, right = 0;
+        while (right < p.length()) {
+            char r = p.charAt(right);
+            if (original[r - 'a'] == 0) {
+                left = ++right;
+                if (matched > 0) {
+                    unmatched = original.clone();
+                    matched = 0;
+                }
                 continue;
             }
-            if (++window[r - 'a'] == need[r - 'a']) {
-                if (--unmatched == 0) {
+            if (--unmatched[r - 'a'] >= 0) {
+                if (++matched == s.length()) {
                     return true;
                 }
-            }
-            while (right - left >= s1.length()) {
-                char l = s2.charAt(left++);
-                if (window[l - 'a']-- == need[l - 'a']) {
-                    ++unmatched;
+            } else {
+                while (p.charAt(left) != p.charAt(right)) {
+                    unmatched[p.charAt(left++) - 'a']++;
+                    matched--;
                 }
+                unmatched[p.charAt(left++) - 'a']++;
             }
+            right++;
         }
         return false;
     }
