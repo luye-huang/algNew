@@ -6,7 +6,7 @@ import java.util.Deque;
 public class lc42TrappingRainWater {
     public int trap(int[] height) {
         int ret = 0;
-        //monotonic less
+        //monotonic less 结算前面所有比当前小的
         Deque<Integer> deque = new ArrayDeque<>();
         for (int i = 0; i < height.length; i++) {
             int bottom = deque.isEmpty() ? 0 : height[deque.peekLast()];

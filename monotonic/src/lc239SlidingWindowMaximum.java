@@ -43,7 +43,6 @@ public class lc239SlidingWindowMaximum {
 //        return ret;
 //    }
 
-
     public int[] maxSlidingWindow(int[] nums, int k) {
         if (nums.length - k < 0) {
             return nums;
