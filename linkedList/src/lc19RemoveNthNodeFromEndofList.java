@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 public class lc19RemoveNthNodeFromEndofList {
+    //双指针
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode();
         dummy.next = head;
