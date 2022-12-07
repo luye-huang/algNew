@@ -1,7 +1,7 @@
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+    protected int val;
+    protected TreeNode left;
+    protected TreeNode right;
 
     TreeNode() {
     }
