@@ -1,25 +1,22 @@
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 //https://leetcode.com/problems/subarray-sum-equals-k/solutions/102106/java-solution-presum-hashmap/
 
 public class lc560SubarraySumEqualsK {
     public int subarraySum(int[] nums, int k) {
-        int sum = 0, result = 0;
-        Map<Integer, Integer> preSum = new HashMap<>();
+        int ret = 0, sum = 0;
+        HashMap<Integer, Integer> preSum = new HashMap<>();
         preSum.put(0, 1);
-
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
+        for (int num : nums) {
+            sum += num;
             if (preSum.containsKey(sum - k)) {
-                result += preSum.get(sum - k);
+                ret += preSum.get(sum - k);
             }
             preSum.put(sum, preSum.getOrDefault(sum, 0) + 1);
         }
-
-        return result;
+        return ret;
     }
 
     @Test
